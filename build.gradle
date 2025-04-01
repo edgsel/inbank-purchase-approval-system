@@ -60,7 +60,7 @@ tasks.register("createChangeDir") {
 		Files.createFile(newFilePath)
 		
 		def file = file(newFilePath)
-		def fileContent = "-- liquibase formatted sql logicalFilePath:classpath:/db/changelog/${currentYear}/${filename} \n-- changeset edgsel"
+		def fileContent = "-- liquibase formatted sql logicalFilePath:classpath:/db/changelog/${currentYear}/${filename} \n-- changeset author:edgsel"
 		def writer = new FileWriter(file)
 		
 		writer.write(fileContent)
