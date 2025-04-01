@@ -1,4 +1,4 @@
-package inbank.purchaseApprovalSystem;
+package ee.inbank.pas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
