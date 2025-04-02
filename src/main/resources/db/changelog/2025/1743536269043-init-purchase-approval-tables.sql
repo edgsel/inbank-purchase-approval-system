@@ -5,30 +5,33 @@ CREATE TYPE customer_status AS ENUM ('ACTIVE', 'INACTIVE');
 CREATE TYPE purchase_status AS ENUM ('APPROVED', 'REJECTED', 'APPROVED_PARTIALLY');
 
 CREATE TABLE profile (
-    id SERIAL PRIMARY KEY,
-    financial_capacity_factor INTEGER NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    modified_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+    id SERIAL                   PRIMARY KEY,
+    financial_capacity_factor   INTEGER NOT NULL,
+    created_at                  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    modified_at                 TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE customer (
-    id SERIAL PRIMARY KEY,
-    profile_id INTEGER NOT NULL,
-    status customer_status NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    modified_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
-    CONSTRAINT fk_customer_profile FOREIGN KEY (profile_id) REFERENCES profile(id) ON DELETE CASCADE
+    id SERIAL               PRIMARY KEY,
+    personal_id             INTEGER NOT NULL,
+    profile_id              INTEGER NOT NULL,
+    status customer_status  NOT NULL,
+    created_at              TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    modified_at             TIMESTAMP WITH TIME ZONE DEFAULT now(),
+
+    CONSTRAINT fk_customer_profile FOREIGN KEY (profile_id) REFERENCES profile(id)
 );
 
 CREATE TABLE purchase (
-    id SERIAL PRIMARY KEY,
-    customer_id INTEGER NOT NULL,
-    amount DECIMAL(18,2) NOT NULL,
-    max_allowed_amount DECIMAL(18,2) NOT NULL,
+    id SERIAL              PRIMARY KEY,
+    customer_id            INTEGER NOT NULL,
+    amount                 DECIMAL(18,2) NOT NULL,
+    max_allowed_amount     DECIMAL(18,2) NOT NULL,
     status purchase_status NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    modified_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
-    CONSTRAINT fk_purchase_customer FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE CASCADE
+    created_at             TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    modified_at            TIMESTAMP WITH TIME ZONE DEFAULT now(),
+
+    CONSTRAINT fk_purchase_customer FOREIGN KEY (customer_id) REFERENCES customer(id)
 );
 
 CREATE INDEX idx_customer_profile_id ON customer(profile_id);

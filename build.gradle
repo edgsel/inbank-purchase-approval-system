@@ -3,68 +3,107 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 plugins {
-	id "java"
-	id "org.springframework.boot" version "3.4.4"
-	id "io.spring.dependency-management" version "1.1.7"
+    id "java"
+    id "org.springframework.boot" version "3.4.4"
+    id "io.spring.dependency-management" version "1.1.7"
+    id "org.openapi.generator" version "7.12.0"
+    id "application"
 }
 
 group = "ee.inbank"
 version = "1.0.0"
 
+application {
+    mainClass = "ee.inbank.pas.PurchaseApprovalSystemApplication"
+}
+
+compileJava.dependsOn tasks.openApiGenerate
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$projectDir/src/main/resources/api/openapi.yml".toString()
+    outputDir = "$buildDir/generated"
+    apiPackage = "ee.inbank.api"
+    modelPackage = "ee.inbank.model"
+    configOptions = [
+            dateLibrary    : "java8",
+            java8          : "true",
+            openApiNullable: "false",
+            useJakartaEe   : "true"
+    ]
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs "$buildDir/generated/src/main/java"
+        }
+    }
+}
+
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(23)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+
+    runtime.exclude group: "org.slf4j", module: "slf4j-simple"
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-	implementation "org.springframework.boot:spring-boot-starter-web"
-	implementation "org.liquibase:liquibase-core"
-	compileOnly "org.projectlombok:lombok"
-	runtimeOnly "org.postgresql:postgresql"
-	annotationProcessor "org.projectlombok:lombok"
-	testImplementation "org.springframework.boot:spring-boot-starter-test"
-	testImplementation "com.h2database:h2"
-	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
-}
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6"
+    implementation "org.openapitools:openapi-generator-gradle-plugin:7.12.0"
+    implementation "org.liquibase:liquibase-core"
+    implementation "jakarta.validation:jakarta.validation-api:3.1.1"
+    implementation "org.hibernate.validator:hibernate-validator:8.0.2.Final"
+    implementation "org.springframework.boot:spring-boot-starter-logging:3.4.4"
 
-tasks.named("test") {
-	useJUnitPlatform()
+    compileOnly "org.projectlombok:lombok"
+    runtimeOnly "org.postgresql:postgresql"
+    annotationProcessor "org.projectlombok:lombok"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "com.h2database:h2"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
 
 tasks.register("createChangeDir") {
-	group = "Liquibase"
-	description = "Creates an empty SQL file for Liquibase migration"
+    group = "Liquibase"
+    description = "Creates an empty SQL file for Liquibase migration"
 
-	doLast {
-		def currentYear = Year.now().value
-		def filename = "${System.currentTimeMillis()}-${project.id}.sql"
-		def changelogDir = Paths.get("src/main/resources/db/changelog/${currentYear}")
-		def newFilePath = changelogDir.resolve(filename)
+    doLast {
+        def currentYear = Year.now().value
+        def filename = "${System.currentTimeMillis()}-${project.id}.sql"
+        def changelogDir = Paths.get("src/main/resources/db/changelog/${currentYear}")
+        def newFilePath = changelogDir.resolve(filename)
 
-		if (!Files.exists(changelogDir)) {
-			Files.createDirectories(changelogDir)
-		}
+        if (!Files.exists(changelogDir)) {
+            Files.createDirectories(changelogDir)
+        }
 
-		Files.createFile(newFilePath)
-		
-		def file = file(newFilePath)
-		def fileContent = "-- liquibase formatted sql logicalFilePath:classpath:/db/changelog/${currentYear}/${filename} \n-- changeset author:edgsel"
-		def writer = new FileWriter(file)
-		
-		writer.write(fileContent)
-		writer.close()
-		logger.quiet("Created a new file: $file")
-	}
+        Files.createFile(newFilePath)
+
+        def file = file(newFilePath)
+        def fileContent = "-- liquibase formatted sql logicalFilePath:classpath:/db/changelog/${currentYear}/${filename} \n-- changeset author:edgsel"
+        def writer = new FileWriter(file)
+
+        writer.write(fileContent)
+        writer.close()
+        logger.quiet("Created a new file: $file")
+    }
+}
+
+tasks.named("test") {
+    useJUnitPlatform()
 }
