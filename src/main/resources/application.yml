@@ -1,0 +1,44 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    resolve-schema-properties: true
+    enabled: true
+  paths-to-match: /**
+
+spring:
+  application.name: purchase-approval-system
+  main.allow-bean-definition-overriding: true
+  jpa:
+    properties.hibernate:
+      show_sql: true
+      use_sql_comments: false
+      format_sql: false
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      enable_lazy_load_no_trans: true
+      default_schema: public
+    hibernate.ddl-auto: none
+    open-in-view: true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/master.yml
+    url: 'jdbc:postgresql://localhost:5432/${POSTGRES_DB}'
+    user: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+  datasource:
+    dbcp2:
+      test-while-idle: true
+      validation-query: 'SELECT 1'
+    driver-class-name: org.postgresql.Driver
+    url: 'jdbc:postgresql://localhost:5432/${POSTGRES_DB}'
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+
+logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG

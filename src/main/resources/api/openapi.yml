@@ -1,0 +1,69 @@
+openapi: 3.0.1
+info:
+  title: Purchase Approval System API
+  description: Inbank Purchase Approval System API
+  version: 1.0.0
+
+paths:
+  /api/v1/purchase/approval:
+    post:
+      summary: Decides whether to approve customer's request for a purchase
+      operationId: purchaseApproval
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerPurchaseRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerPurchaseResponse'
+        '400':
+          description: Invalid request
+        '404':
+          description: Customer's personal ID not found
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    CustomerPurchaseRequest:
+      type: object
+      required:
+        - personalId
+        - amount
+        - paymentPeriod
+      properties:
+        personalId:
+          type: integer
+          description: Customer's personal ID
+          example: 12345678901
+        amount:
+          type: number
+          format: double
+          minimum: 200
+          maximum: 5000
+          description: Customer's requested purchase amount
+          example: 500.00
+        paymentPeriod:
+          type: integer
+          description: Payment period for purchase in months
+          example: 6
+          minimum: 6
+          maximum: 24
+    CustomerPurchaseResponse:
+      type: object
+      properties:
+        approved:
+          type: boolean
+          description: Purchase approval status
+          example: true
+        amount:
+          type: number
+          format: double
+          description: Amount of request purchase
+          example: 500.00
