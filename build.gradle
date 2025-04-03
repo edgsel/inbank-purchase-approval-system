@@ -26,10 +26,11 @@ openApiGenerate {
     apiPackage = "ee.inbank.api"
     modelPackage = "ee.inbank.model"
     configOptions = [
-            dateLibrary    : "java8",
-            java8          : "true",
-            openApiNullable: "false",
-            useJakartaEe   : "true"
+            dateLibrary                   : "java8",
+            java8                         : "true",
+            openApiNullable               : "false",
+            useJakartaEe                  : "true",
+            additionalModelTypeAnnotations: "@lombok.Builder;"
     ]
 }
 
