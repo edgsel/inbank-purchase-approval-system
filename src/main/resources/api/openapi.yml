@@ -24,10 +24,22 @@ paths:
                 $ref: '#/components/schemas/CustomerPurchaseResponse'
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Customer's personal ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '500':
           description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
@@ -68,3 +80,14 @@ components:
           format: double
           description: Amount of request purchase
           example: 500.00
+    ErrorResponse:
+      type: object
+      properties:
+       code:
+         type: string
+         description: Server error code
+         example: CUSTOMER_NOT_FOUND
+       description:
+         type: string
+         description:  Detailed description of the error
+         example: Lorum Ipsum
