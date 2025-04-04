@@ -57,11 +57,11 @@ components:
           example: 12345678901
         amount:
           type: number
-          format: double
-          minimum: 200
-          maximum: 5000
+          minimum: 200.00
+          maximum: 5000.00
+          multipleOf: 0.01
           description: Customer's requested purchase amount
-          example: 500.00
+          example: 500.01
         paymentPeriod:
           type: integer
           description: Payment period for purchase in months
@@ -77,9 +77,9 @@ components:
           example: true
         amount:
           type: number
-          format: double
+          multipleOf: 0.01
           description: Amount of request purchase
-          example: 500.00
+          example: 500.01
     ErrorResponse:
       type: object
       properties:
