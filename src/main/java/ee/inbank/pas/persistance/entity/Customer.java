@@ -13,17 +13,19 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Getter
 @Builder
-@Table(schema = "PAS", name = "CUSTOMER")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(schema = "PUBLIC", name = "CUSTOMER")
 public class Customer {
 
     @Id

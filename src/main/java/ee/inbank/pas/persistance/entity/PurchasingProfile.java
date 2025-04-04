@@ -6,16 +6,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
 @Builder
-@Table(schema = "PAS", name = "PURCHASING_PROFILE")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(schema = "PUBLIC", name = "PURCHASING_PROFILE")
 public class PurchasingProfile {
 
     @Id
