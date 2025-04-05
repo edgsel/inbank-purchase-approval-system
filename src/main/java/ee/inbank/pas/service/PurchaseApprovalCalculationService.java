@@ -104,7 +104,7 @@ public class PurchaseApprovalCalculationService {
             .doubleValue();
     }
 
-    private static boolean isApproved(double approvalScore) {
+    private static Boolean isApproved(double approvalScore) {
         return approvalScore >= APPROVAL_THRESHOLD;
     }
 }
