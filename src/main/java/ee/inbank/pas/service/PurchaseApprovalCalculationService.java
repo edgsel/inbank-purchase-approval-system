@@ -20,18 +20,18 @@ public class PurchaseApprovalCalculationService {
     private static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_DOWN;
     private static final BigDecimal MAX_PURCHASE_AMOUNT = new BigDecimal("5000.00");
     private static final BigDecimal MIN_AMOUNT_INCREMENT = new BigDecimal("0.01");
-    private static final BigDecimal DIVISOR = new BigDecimal("2");
+    private static final BigDecimal DIVISOR = new BigDecimal("2.00");
 
     public PurchaseApprovalResult getApprovalResult(Integer financialCapacityFactor, BigDecimal amount, Integer periodInMonths) {
         var approvalScore = calculateApprovalScore(financialCapacityFactor, amount, periodInMonths);
 
-        // 1.
+        // 1. Happy path
         if (isApproved(approvalScore)) {
             var maxAmount = findMaxApprovedAmount(financialCapacityFactor, amount, MAX_PURCHASE_AMOUNT, periodInMonths);
             return buildPurchaseApprovalResult(maxAmount, periodInMonths, PurchaseStatus.APPROVED, true);
         }
 
-        // 2. Scenario when requested amount is rejected, but we want to approve the maximum amount within the range
+        // 2. When requested amount is rejected, but we want to approve the maximum amount within the range
         // e.g 500e -> rejected, 300e -> approved
         var maxApprovedAmountInRange = findMaxApprovedAmount(financialCapacityFactor, BigDecimal.ONE, amount, periodInMonths);
         if (maxApprovedAmountInRange.compareTo(BigDecimal.ONE) > 0) {
@@ -104,7 +104,7 @@ public class PurchaseApprovalCalculationService {
             .doubleValue();
     }
 
-    private static Boolean isApproved(double approvalScore) {
+    private static boolean isApproved(double approvalScore) {
         return approvalScore >= APPROVAL_THRESHOLD;
     }
 }

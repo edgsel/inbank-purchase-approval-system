@@ -20,7 +20,7 @@ public class ObjectBuildersUtil {
 
     public static PurchaseApprovalResult buildPurchaseApprovalResult(
         BigDecimal amount, Integer periodInMonths,
-        PurchaseStatus status, Boolean approved
+        PurchaseStatus status, boolean approved
     ) {
         return PurchaseApprovalResult.builder()
             .amount(amount)

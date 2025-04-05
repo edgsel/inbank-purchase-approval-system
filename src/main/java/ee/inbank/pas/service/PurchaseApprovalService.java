@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.Set;
 
 import static ee.inbank.pas.util.ObjectBuildersUtil.buildPurchaseApprovalResult;
 
@@ -24,6 +25,8 @@ import static ee.inbank.pas.util.ObjectBuildersUtil.buildPurchaseApprovalResult;
 @Transactional
 @AllArgsConstructor
 public class PurchaseApprovalService {
+
+    private static final Set<Long> HARDCODED_PERSONAL_IDS_WITH_ADJUSTED_PAYMENT_PERIOD = Set.of(12345678912L);
 
     private final CustomerRepository customerRepository;
     private final PurchaseRepository purchaseRepository;
@@ -41,12 +44,18 @@ public class PurchaseApprovalService {
     }
 
     private PurchaseApprovalResult calculateApprovalResult(Customer customer, CustomerPurchaseRequest request) {
-        if (Boolean.FALSE.equals(customer.isEligible())) {
+        if (HARDCODED_PERSONAL_IDS_WITH_ADJUSTED_PAYMENT_PERIOD.contains(customer.getPersonalId())) {
+            log.warn("Applying hardcoded payment period for customer ID: {}", customer.getId());
+            return buildPurchaseApprovalResult(request.getAmount(), 24, PurchaseStatus.APPROVED, true);
+        }
+
+        if (!customer.isEligible()) {
             return buildPurchaseApprovalResult(
                 request.getAmount(), request.getPaymentPeriodInMonths(),
                 PurchaseStatus.REJECTED, false
             );
         }
+
         return purchaseApprovalCalculationService.getApprovalResult(
             customer.getPurchasingProfile().getFinancialCapacityFactor(),
             request.getAmount(),

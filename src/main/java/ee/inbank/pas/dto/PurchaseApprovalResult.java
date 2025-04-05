@@ -9,6 +9,6 @@ public record PurchaseApprovalResult(
     BigDecimal amount,
     Integer paymentPeriodInMonths,
     PurchaseStatus purchaseStatus,
-    Boolean approved
+    boolean approved
 ) {
 }

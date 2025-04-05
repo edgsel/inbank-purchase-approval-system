@@ -65,7 +65,7 @@ public class Customer {
         INELIGIBLE
     }
 
-    public Boolean isEligible() {
+    public boolean isEligible() {
         return this.status == CustomerStatus.ELIGIBLE;
     }
 }
