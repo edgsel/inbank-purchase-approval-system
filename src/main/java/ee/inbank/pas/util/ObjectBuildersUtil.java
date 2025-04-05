@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
 import java.math.BigDecimal;
 
 @UtilityClass
-public class DtoBuildersUtil {
+public class ObjectBuildersUtil {
 
     public static CustomerPurchaseResponse buildResponse(PurchaseApprovalResult approvalResult) {
         return CustomerPurchaseResponse.builder()
