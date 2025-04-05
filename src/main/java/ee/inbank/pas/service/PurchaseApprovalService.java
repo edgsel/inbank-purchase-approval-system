@@ -38,7 +38,7 @@ public class PurchaseApprovalService {
 
         log.info("Calculated purchase approval result for customer ID: {}", customer.getId());
 
-        persistResult(customer, approvalResult, request.getAmount());
+        persistPurchaseResult(customer, approvalResult, request.getAmount());
 
         return approvalResult;
     }
@@ -70,7 +70,7 @@ public class PurchaseApprovalService {
                 ErrorCode.CUSTOMER_NOT_FOUND.name()));
     }
 
-    private void persistResult(Customer customer, PurchaseApprovalResult approvalResult, BigDecimal requestedAmount) {
+    private void persistPurchaseResult(Customer customer, PurchaseApprovalResult approvalResult, BigDecimal requestedAmount) {
         purchaseRepository.save(Purchase.toEntity(customer, approvalResult, requestedAmount));
     }
 }
