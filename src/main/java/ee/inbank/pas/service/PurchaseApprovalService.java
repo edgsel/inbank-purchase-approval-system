@@ -42,7 +42,7 @@ public class PurchaseApprovalService {
     }
 
     private PurchaseApprovalResult calculateApprovalResult(Customer customer, CustomerPurchaseRequest request) {
-        if (!customer.isEligible()) {
+        if (Boolean.FALSE.equals(customer.isEligible())) {
             return buildPurchaseApprovalResult(
                 request.getAmount(), request.getPaymentPeriodInMonths(),
                 PurchaseStatus.REJECTED, false
@@ -57,7 +57,9 @@ public class PurchaseApprovalService {
 
     private Customer findCustomerOrThrow(Long personalId) {
         return Optional.ofNullable(customerRepository.findByPersonalId(personalId))
-            .orElseThrow(() -> new EntityNotFoundException("Customer with personal ID %s not found".formatted(personalId), ErrorCode.CUSTOMER_NOT_FOUND.name()));
+            .orElseThrow(() -> new EntityNotFoundException(
+                "Customer with personal ID %s not found".formatted(personalId),
+                ErrorCode.CUSTOMER_NOT_FOUND.name()));
     }
 
     private void persistResult(Customer customer, PurchaseApprovalResult approvalResult, BigDecimal requestedAmount) {
