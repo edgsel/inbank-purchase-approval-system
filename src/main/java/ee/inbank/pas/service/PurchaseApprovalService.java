@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.Set;
 
 import static ee.inbank.pas.util.ObjectBuildersUtil.buildPurchaseApprovalResult;
 
