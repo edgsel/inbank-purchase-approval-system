@@ -57,4 +57,8 @@ public class Customer {
         ELIGIBLE,
         INELIGIBLE
     }
+
+    public Boolean isActive() {
+        return this.status != CustomerStatus.INELIGIBLE;
+    }
 }

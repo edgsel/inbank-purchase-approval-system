@@ -48,7 +48,7 @@ components:
       required:
         - personalId
         - amount
-        - paymentPeriod
+        - paymentPeriodInMonths
       properties:
         personalId:
           type: integer
@@ -62,9 +62,9 @@ components:
           multipleOf: 0.01
           description: Customer's requested purchase amount
           example: 500.01
-        paymentPeriod:
+        paymentPeriodInMonths:
           type: integer
-          description: Payment period for purchase in months
+          description: Payment period for purchase
           example: 6
           minimum: 6
           maximum: 24
@@ -80,6 +80,10 @@ components:
           multipleOf: 0.01
           description: Amount of request purchase
           example: 500.01
+        paymentPeriodInMonths:
+          type: integer
+          description: Payment period for purchase after approval decision
+          example: 6
     ErrorResponse:
       type: object
       properties:

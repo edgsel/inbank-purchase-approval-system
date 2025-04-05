@@ -1,5 +1,6 @@
 package ee.inbank.pas.persistance.entity;
 
+import ee.inbank.pas.dto.PurchaseStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -50,9 +51,4 @@ public class Purchase {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    public enum PurchaseStatus {
-        APPROVED,
-        APPROVED_PARTIALLY,
-        REJECTED
-    }
 }
