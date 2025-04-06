@@ -13,7 +13,7 @@ const {
 </script>
 
 <template>
-  <h1>Purchase Approval System</h1>
+  <h1>Inbank Purchase Approval System</h1>
   <div class="app-container">
     <form @submit.prevent="submitForm">
       <h2>Purchase Approval Request</h2>
