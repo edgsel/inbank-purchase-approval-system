@@ -12,6 +12,8 @@ Node JS v23.11.0
 
 NPM 11.2.0
 
+VueJS (v3)
+
 Docker 4.39.0
 
 PostgreSQL 17.4 (postgres:latest in /docker/postgres.yml)
