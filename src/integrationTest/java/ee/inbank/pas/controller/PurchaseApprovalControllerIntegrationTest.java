@@ -8,7 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import testcontainers.AbstractIntegrationTest;
+import ee.inbank.pas.testcontainers.AbstractIntegrationTest;
 
 import static ee.inbank.pas.util.FileUtil.readFromFileToString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
