@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.stream.Collectors;
 
+import static ee.inbank.pas.exception.ErrorCode.INTERNAL_ERROR;
+import static ee.inbank.pas.exception.ErrorCode.VALIDATION_ERROR;
+
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -35,7 +38,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
             .contentType(MediaType.APPLICATION_JSON)
-            .body(buildErrorResponse(errorMessage, "VALIDATION_ERROR"));
+            .body(buildErrorResponse(errorMessage, VALIDATION_ERROR.name()));
     }
 
     @ExceptionHandler(Exception.class)
@@ -45,7 +48,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
             .contentType(MediaType.APPLICATION_JSON)
-            .body(buildErrorResponse("Internal Server Error", "INTERNAL_ERROR"));
+            .body(buildErrorResponse("Internal Server Error", INTERNAL_ERROR.name()));
     }
 
     private static ErrorResponse buildErrorResponse(String description, String code) {

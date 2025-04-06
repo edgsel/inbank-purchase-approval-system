@@ -1,0 +1,3 @@
+spring:
+    liquibase.enabled: true
+    datasource.driver-class-name: org.postgresql.Driver
