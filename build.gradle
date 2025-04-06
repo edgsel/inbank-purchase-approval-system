@@ -45,7 +45,7 @@ sourceSets {
             srcDirs "src/integrationTest/java"
 
             compileClasspath += sourceSets.main.output
-            runtimeClasspath = sourceSets.main.output
+            runtimeClasspath += sourceSets.main.output
         }
         resources {
             srcDir "src/integrationTest/resources"
@@ -91,14 +91,11 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "com.h2database:h2"
 
+    integrationTestImplementation "org.testcontainers:testcontainers:1.20.6"
     integrationTestImplementation "org.testcontainers:junit-jupiter:1.20.6"
     integrationTestImplementation "org.testcontainers:postgresql:1.20.6"
     integrationTestImplementation "org.springframework.boot:spring-boot-starter-test"
-    integrationTestImplementation("org.testcontainers:testcontainers:1.20.6") {
-        exclude group: 'junit', module: 'junit'
-    }
 
-    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
     integrationTestRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 
     integrationTestImplementation platform("org.junit:junit-bom:5.10.0")
@@ -109,7 +106,7 @@ dependencies {
 }
 
 tasks.register("createChangeDir") {
-    group = "Liquibase"
+    group = "liquibase"
     description = "Creates an empty SQL file for Liquibase migration"
 
     doLast {
@@ -138,7 +135,12 @@ tasks.named("test") {
     useJUnitPlatform()
 }
 
+tasks.named('processIntegrationTestResources') {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 tasks.register('integrationTest', Test) {
+    group = 'verification'
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
 
