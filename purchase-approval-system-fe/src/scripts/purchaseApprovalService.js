@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import axios from 'axios';
 
-export function usePurchaseApproval() {
+export function purchaseApprovalService() {
     const form = ref({
         personalId: '',
         amount: '',
@@ -16,10 +16,14 @@ export function usePurchaseApproval() {
         loading.value = true;
 
         try {
-            const response = await axios.post('/api/v1/purchase/approval', form.value);
+            const response = await axios.post(
+                `${import.meta.env.VITE_API_URL}/api/v1/purchase/approval`,
+                form.value
+            );
             result.value = response.data;
         } catch (error) {
-            alert(error?.response?.data?.description || 'Unexpected error');
+            console.log(error);
+            result.value = error.response.data;
         } finally {
             loading.value = false;
             showModal.value = true;

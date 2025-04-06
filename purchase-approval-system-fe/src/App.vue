@@ -1,5 +1,6 @@
 <script setup>
-import { usePurchaseApproval } from './scripts/usePurchaseApproval.js';
+import { purchaseApprovalService } from './scripts/purchaseApprovalService.js';
+import { getStatusLabel } from './scripts/helper.js';
 
 const {
   form,
@@ -8,7 +9,7 @@ const {
   result,
   submitForm,
   closeModal
-} = usePurchaseApproval();
+} = purchaseApprovalService();
 </script>
 
 <template>
@@ -33,15 +34,13 @@ const {
 
     <div v-if="showModal" class="modal-overlay">
       <div class="modal">
-        <h3>Request Result</h3>
-        <p v-if="result.approved">
-          Approved!<br>
-          Amount: €{{ result.amount }}<br>
-          Payment Period: {{ result.paymentPeriodInMonths }} months
-        </p>
-        <p v-else>
-          Unfortunately, your request has been rejected.
-        </p>
+        <h3>Approval Result</h3>
+        <p>Status: {{ getStatusLabel(result.approved) }}</p>
+        <div v-if="!result.description">
+          <p v-if="result.amount">Amount: €{{ result.amount }}</p>
+          <p v-if="result.paymentPeriodInMonths">Payment Period: {{ result.paymentPeriodInMonths }} months</p>
+        </div>
+        <p v-if="result.description" ><b>Reason</b>: {{ result.description }}</p>
         <button @click="closeModal">Close</button>
       </div>
     </div>

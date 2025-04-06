@@ -144,6 +144,7 @@ button {
   padding: 20px;
   border-radius: 8px;
   text-align: center;
+  color: rgba(0, 0, 0, 1);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease;
 }
