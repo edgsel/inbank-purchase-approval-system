@@ -24,10 +24,22 @@ paths:
                 $ref: '#/components/schemas/CustomerPurchaseResponse'
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Customer's personal ID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '500':
           description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
@@ -36,22 +48,23 @@ components:
       required:
         - personalId
         - amount
-        - paymentPeriod
+        - paymentPeriodInMonths
       properties:
         personalId:
           type: integer
+          format: int64
           description: Customer's personal ID
           example: 12345678901
         amount:
           type: number
-          format: double
-          minimum: 200
-          maximum: 5000
+          minimum: 200.00
+          maximum: 5000.00
+          multipleOf: 0.01
           description: Customer's requested purchase amount
-          example: 500.00
-        paymentPeriod:
+          example: 500.01
+        paymentPeriodInMonths:
           type: integer
-          description: Payment period for purchase in months
+          description: Payment period for purchase
           example: 6
           minimum: 6
           maximum: 24
@@ -64,6 +77,21 @@ components:
           example: true
         amount:
           type: number
-          format: double
+          multipleOf: 0.01
           description: Amount of request purchase
-          example: 500.00
+          example: 500.01
+        paymentPeriodInMonths:
+          type: integer
+          description: Payment period for purchase after approval decision
+          example: 6
+    ErrorResponse:
+      type: object
+      properties:
+       code:
+         type: string
+         description: Server error code
+         example: CUSTOMER_NOT_FOUND
+       description:
+         type: string
+         description:  Detailed description of the error
+         example: Lorum Ipsum

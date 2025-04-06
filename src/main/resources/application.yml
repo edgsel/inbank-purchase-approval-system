@@ -26,12 +26,6 @@ spring:
       default_schema: public
     hibernate.ddl-auto: none
     open-in-view: true
-  liquibase:
-    enabled: true
-    change-log: classpath:db/changelog/master.yml
-    url: 'jdbc:postgresql://localhost:5432/${POSTGRES_DB}'
-    user: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
   datasource:
     dbcp2:
       test-while-idle: true
@@ -40,5 +34,11 @@ spring:
     url: 'jdbc:postgresql://localhost:5432/${POSTGRES_DB}'
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
+  liquibase:
+      enabled: true
+      change-log: classpath:db/changelog/master.yml
+      url: ${spring.datasource.url}
+      user: ${spring.datasource.username}
+      password: ${spring.datasource.password}
 
 logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
