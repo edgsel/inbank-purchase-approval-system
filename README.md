@@ -4,7 +4,7 @@ A purchase approval system for online stores
 ## Required setup (at the time of development)
 JDK 23+
  
-Gradle 8.13+
+Gradle 8.10+
 
 Docker 4.39.0+
 
