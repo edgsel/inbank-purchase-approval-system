@@ -20,15 +20,17 @@ PostgreSQL 17.4 (postgres:latest in /docker/postgres.yml)
 
 `POSTGRES_PASSWORD=<your_db_password>`
 
-# To run application locally
+# To run applications locally
 
-## 1. Set and export ENV variables (Linux/MacOS)
+## BE
+
+### 1. Set and export ENV variables (Linux/MacOS)
 * `export $(xargs < .env)`
 
-## 2. Start up DB container
-* `docker compose -f docker/posgres.yml up -d`
+### 2. Start up DB container
+* `docker compose -f purchase-approval-system-be/docker/posgres.yml up -d`
 
-## 3. To run the project with Gradle for `MacOS/Linux`:
+### 3. To run the project with Gradle for `MacOS/Linux`:
 Build the project
 * `./gradlew clean build` 
 
@@ -38,7 +40,7 @@ Run tests:
 Run integration tests:
 * `./gradlew integrationTest`
 
-## 4. And then...
+### 4. And then...
 Run the project:
 * `./gradlew bootRun`
 
@@ -53,3 +55,6 @@ To create a new changeset run createChangeDir with the next command:
 
 # API docs
 * For Inbank Purchase Approval System API docs go to `http://localhost:8080/swagger-ui/index.html`
+
+## FE
+
