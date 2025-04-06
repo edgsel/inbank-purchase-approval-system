@@ -26,7 +26,7 @@ compileJava.dependsOn tasks.openApiGenerate
 openApiGenerate {
     generatorName = "spring"
     inputSpec = "$projectDir/src/main/resources/api/openapi.yml"
-    outputDir = "$projectDir/generated"
+    outputDir = "$projectDir/build/generated"
     apiPackage = "ee.inbank.api"
     modelPackage = "ee.inbank.model"
     configOptions = [
@@ -116,7 +116,7 @@ tasks.register("createChangeDir") {
     doLast {
         def currentYear = Year.now().value
         def filename = "${System.currentTimeMillis()}-${project.id}.sql"
-        def changelogDir = Paths.get("src/main/resources/db/changelog/${currentYear}")
+        def changelogDir = Paths.get("purchase-approval-system-be/src/main/resources/db/changelog/${currentYear}")
         def newFilePath = changelogDir.resolve(filename)
 
         if (!Files.exists(changelogDir)) {
@@ -125,8 +125,8 @@ tasks.register("createChangeDir") {
 
         Files.createFile(newFilePath)
 
-        def file = file(newFilePath)
-        def fileContent = "-- liquibase formatted sql logicalFilePath:classpath:/db/changelog/${currentYear}/${filename} \n-- changeset author:edgsel"
+        def file = newFilePath.toFile()
+        def fileContent = "-- liquibase formatted sql logicalFilePath:classpath:/db/changelog/${currentYear}/${filename} \n-- changeset edgsel:${project.id}"
         def writer = new FileWriter(file)
 
         writer.write(fileContent)

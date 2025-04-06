@@ -42,3 +42,5 @@ spring:
       password: ${spring.datasource.password}
 
 logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+
+vue.config.host: http://localhost:5173
