@@ -58,12 +58,17 @@ To create a new changeset run createChangeDir with the next command:
 
 ## FE
 
-### 6. Install FE dependencies
+### 6. Open new terminal window
+
+### 7. Set and export ENV variables one more time (Linux/MacOS)
+* `export $(xargs < .env)`
+
+### 8. Install FE dependencies
 * `npm i --prefix purchase-approval-system-fe`
 
-### 7. Run FE application
+### 9. Run FE application
 * `npm run dev --prefix purchase-approval-system-fe`
 
-### 8. Go to host displayed by VITE (Usually http://localhost:5173/)
+### 10. Go to host displayed by VITE (Usually http://localhost:5173/)
 
 ![pas](img/inbank-purchase-approval-system.png)
