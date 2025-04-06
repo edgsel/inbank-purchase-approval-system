@@ -19,3 +19,4 @@ out/
 
 .env
 .gradle
+.DS_Store
