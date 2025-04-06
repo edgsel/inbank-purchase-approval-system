@@ -4,9 +4,13 @@ A purchase approval system for online stores
 ## Required setup (at the time of development)
 JDK 23
 
-Spring Boot 3.4.4 
- 
+Spring Boot 3.4.4
+
 Gradle 8.10
+
+Node JS v23.11.0
+
+NPM 11.2.0
 
 Docker 4.39.0
 
