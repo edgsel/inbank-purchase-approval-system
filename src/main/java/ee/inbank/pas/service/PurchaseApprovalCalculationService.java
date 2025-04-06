@@ -58,7 +58,7 @@ public class PurchaseApprovalCalculationService {
         return buildPurchaseApprovalResult(amount, periodInMonths, PurchaseStatus.REJECTED, false);
     }
 
-    private BigDecimal findMaxApprovedAmount(Integer factor, BigDecimal startAmount, BigDecimal maxAmount, Integer periodInMonths) {
+    public BigDecimal findMaxApprovedAmount(Integer factor, BigDecimal startAmount, BigDecimal maxAmount, Integer periodInMonths) {
         // Use a binary search to find the max amount
         var left = startAmount;
         var right = maxAmount;
@@ -82,7 +82,7 @@ public class PurchaseApprovalCalculationService {
         return result.setScale(ROUNDING_SCALE, RoundingMode.DOWN);
     }
 
-    private static Integer findMaxApprovedPeriod(Integer factor, BigDecimal amount, Integer initialPeriodInMonths) {
+    public Integer findMaxApprovedPeriod(Integer factor, BigDecimal amount, Integer initialPeriodInMonths) {
         for (int period = initialPeriodInMonths; period <= MAX_PURCHASE_PERIOD_IN_MONTHS; period++) {
             double score = calculateApprovalScore(factor, amount, period);
 
@@ -94,7 +94,7 @@ public class PurchaseApprovalCalculationService {
         return null;
     }
 
-    public static double calculateApprovalScore(Integer financialCapacityFactor, BigDecimal amount, Integer paymentPeriod) {
+    public double calculateApprovalScore(Integer financialCapacityFactor, BigDecimal amount, Integer paymentPeriod) {
         var factor = BigDecimal.valueOf(financialCapacityFactor);
         var period = BigDecimal.valueOf(paymentPeriod);
 
