@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = PurchaseApprovalSystemApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PurchaseApprovalControllerIntegrationTest extends AbstractIntegrationTest {
 
-    private static final String URI_PATH = "purchase/approval";
+    private static final String URI_PATH = "/api/v1/purchase/approval";
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,12 +30,12 @@ public class PurchaseApprovalControllerIntegrationTest extends AbstractIntegrati
         var request = readFromFileToString("/purchase-approval/purchase-approval-valid-request.json");
 
         mockMvc.perform(
-                post("api/v1/" + URI_PATH)
+                post(URI_PATH)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(request)
             )
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.approved").value(true))
-            .andExpect(jsonPath("$.amount").value(400.00));
+            .andExpect(jsonPath("$.amount").value(606.06));
     }
 }

@@ -25,5 +25,9 @@ public abstract class AbstractIntegrationTest {
         registry.add("spring.datasource.url", POSTGRES::getJdbcUrl);
         registry.add("spring.datasource.username", POSTGRES::getUsername);
         registry.add("spring.datasource.password", POSTGRES::getPassword);
+
+        registry.add("spring.liquibase.url", POSTGRES::getJdbcUrl);
+        registry.add("spring.liquibase.user", POSTGRES::getUsername);
+        registry.add("spring.liquibase.password", POSTGRES::getPassword);
     }
 }

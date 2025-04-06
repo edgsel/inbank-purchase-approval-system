@@ -17,7 +17,7 @@ import static ee.inbank.pas.util.ObjectBuildersUtil.buildResponse;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/purchase")
+@RequestMapping("/api/v1/purchase")
 public class PurchaseApprovalController {
 
     private final PurchaseApprovalService purchaseApprovalService;
