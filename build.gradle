@@ -17,12 +17,16 @@ application {
     mainClass = "ee.inbank.pas.PurchaseApprovalSystemApplication"
 }
 
+dependencyLocking {
+    lockAllConfigurations()
+}
+
 compileJava.dependsOn tasks.openApiGenerate
 
 openApiGenerate {
     generatorName = "spring"
-    inputSpec = "$projectDir/src/main/resources/api/openapi.yml".toString()
-    outputDir = "$buildDir/generated"
+    inputSpec = "$projectDir/src/main/resources/api/openapi.yml"
+    outputDir = "$projectDir/generated"
     apiPackage = "ee.inbank.api"
     modelPackage = "ee.inbank.model"
     configOptions = [
