@@ -38,7 +38,7 @@ Run tests:
 Run integration tests:
 * `./gradlew integrationTest`
 
-## 5. And then...
+## 4. And then...
 Run the project:
 * `./gradlew bootRun`
 
