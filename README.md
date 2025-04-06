@@ -2,11 +2,13 @@
 A purchase approval system for online stores
 
 ## Required setup (at the time of development)
-JDK 23+
- 
-Gradle 8.10+
+JDK 23
 
-Docker 4.39.0+
+Spring Boot 3.4.4 
+ 
+Gradle 8.10
+
+Docker 4.39.0
 
 PostgreSQL 17.4 (postgres:latest in /docker/postgres.yml)
 
