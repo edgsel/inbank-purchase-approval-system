@@ -46,7 +46,7 @@ Run the project:
 
 # Gradle lockfile
 To create new lockfile
-`./gradlew dependencies --write-locks`
+* `./gradlew dependencies --write-locks`
 
 # Liquibase
 
@@ -58,3 +58,12 @@ To create a new changeset run createChangeDir with the next command:
 
 ## FE
 
+### 6. Install FE dependencies
+* `npm i --prefix purchase-approval-system-fe`
+
+### 7. Run FE application
+* `npm run dev --prefix purchase-approval-system-fe`
+
+### 8. Go to host displayed by VITE (Usually http://localhost:5173/)
+
+![pas](img/inbank-purchase-approval-system.png)
