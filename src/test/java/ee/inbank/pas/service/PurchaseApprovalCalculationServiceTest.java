@@ -3,6 +3,7 @@ package ee.inbank.pas.service;
 import ee.inbank.pas.dto.PurchaseStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
